@@ -1,6 +1,5 @@
 package io.daio.wavetile.api.beach
 
-import android.util.Log
 import io.daio.wavetile.api.model.Beach
 import retrofit2.Call
 import retrofit2.Callback
@@ -8,7 +7,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-class BeachFinderAPI {
+class BeachFinderAPI(private val beachStore: BeachStore) {
 
         private val api: BeachAPI
 
@@ -29,7 +28,14 @@ class BeachFinderAPI {
                 }
 
                 override fun onResponse(call: Call<List<Beach>>?, response: Response<List<Beach>>?) {
-                    success?.invoke(response?.body())
+                    val selectedBeach = beachStore.getBeach()
+                    val beaches = response?.body()
+
+                    beaches?.forEach {
+                        it.selected = it.id === selectedBeach?.id
+                    }
+
+                    success?.invoke(beaches)
                 }
 
             })

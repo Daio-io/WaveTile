@@ -25,6 +25,9 @@ class BeachView: Fragment(), View {
         super.onViewCreated(view, savedInstanceState)
         beach_list_recycler.layoutManager = LinearLayoutManager(context)
         beach_list_recycler.adapter = adapter
+        adapter.selectListener = {
+            presenter?.beachSelected(it)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -40,5 +43,10 @@ class BeachView: Fragment(), View {
     override fun displayBeaches(beaches: List<Beach>) {
         adapter.setBeaches(beaches)
     }
+
+    override fun beachStored(beach: Beach) {
+        adapter.savedBeachUpdated(beach)
+    }
+
     //</editor-fold>
 }

@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.beach_list_item.view.*
 class BeachAdapter(): RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
 
     private var beaches: List<Beach>? = null
+    var selectListener: ((Beach?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BeachViewHolder {
         val view = LayoutInflater.from(parent?.context).inflate(R.layout.beach_list_item, parent, false)
@@ -32,10 +33,33 @@ class BeachAdapter(): RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
         notifyDataSetChanged()
     }
 
-    inner class BeachViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    fun savedBeachUpdated(beach: Beach) {
+        beaches?.forEach {
+            if (beach.id === it.id) {
+                it.selected = true
+            } else {
+                it.selected = false
+            }
+        }
+        notifyDataSetChanged()
+    }
+
+    inner class BeachViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+
+        private var beach: Beach? = null
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bindBeach(beach: Beach?) {
-            itemView.beach_list_name.text = beach?.name
+            this.beach = beach
+            itemView.beach_list_name.text = this.beach?.name
+            itemView.beach_list_selected.isChecked = this.beach?.selected ?: false
+        }
+
+        override fun onClick(v: View?) {
+            selectListener?.invoke(beach)
         }
 
     }
