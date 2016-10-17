@@ -2,6 +2,7 @@ package io.daio.wavetile
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
 import io.daio.wavetile.api.beach.BeachFinderAPI
 import io.daio.wavetile.api.beach.BeachStore
 import io.daio.wavetile.mvp.beaches.BeachPresenter
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
                 .replace(R.id.view_container, view)
                 .commit()
+
     }
 
 }

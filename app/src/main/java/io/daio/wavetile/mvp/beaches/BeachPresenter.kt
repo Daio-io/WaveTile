@@ -6,7 +6,9 @@ import io.daio.wavetile.mvp.View
 import io.daio.wavetile.repo.BeachRepo
 
 
-class BeachPresenter(val view: View, val beachRepo: BeachRepo): Presenter {
+class BeachPresenter(val view: View, val beachRepo: BeachRepo) : Presenter {
+
+    private var beaches: List<Beach>? = null
 
     init {
         view.setPresenter(this)
@@ -15,6 +17,7 @@ class BeachPresenter(val view: View, val beachRepo: BeachRepo): Presenter {
     override fun start() {
         beachRepo.getBeaches {
             it?.let {
+                beaches = it
                 view.displayBeaches(it)
             }
         }
@@ -27,5 +30,13 @@ class BeachPresenter(val view: View, val beachRepo: BeachRepo): Presenter {
         }
     }
 
+
+    override fun search(query: String?) {
+        beaches?.filter {
+            it.name!!.toLowerCase().contains(query?.toLowerCase() as CharSequence)
+        }?.let {
+            view.displayBeaches(it)
+        }
+    }
 
 }

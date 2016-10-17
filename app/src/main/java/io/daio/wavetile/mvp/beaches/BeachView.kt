@@ -2,8 +2,12 @@ package io.daio.wavetile.mvp.beaches
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.SearchView
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.ViewGroup
 import io.daio.wavetile.R
 import io.daio.wavetile.api.model.Beach
@@ -12,10 +16,15 @@ import io.daio.wavetile.mvp.View
 import io.daio.wavetile.mvp.beaches.adapter.BeachAdapter
 import kotlinx.android.synthetic.main.fragment_beaches_view.*
 
-class BeachView: Fragment(), View {
+class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
 
     private var presenter: Presenter? = null
     private val adapter = BeachAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): android.view.View? {
         return inflater?.inflate(R.layout.fragment_beaches_view, container, false)
@@ -35,6 +44,14 @@ class BeachView: Fragment(), View {
         presenter?.start()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        inflater?.inflate(R.menu.main, menu)
+
+        val searchItem = menu?.findItem(R.id.action_search)
+        val searchView = MenuItemCompat.getActionView(searchItem) as SearchView
+        searchView.setOnQueryTextListener(this)
+    }
+
     //<editor-fold desc="View Interface Methods">
     override fun setPresenter(presenter: Presenter?) {
         this.presenter = presenter
@@ -47,6 +64,17 @@ class BeachView: Fragment(), View {
     override fun beachStored(beach: Beach) {
         adapter.savedBeachUpdated(beach)
     }
-
     //</editor-fold>
+
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        presenter?.search(query)
+        return false
+    }
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        presenter?.search(newText)
+        return false
+    }
+
 }
