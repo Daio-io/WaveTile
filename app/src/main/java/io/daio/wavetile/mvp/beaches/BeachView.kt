@@ -16,7 +16,7 @@ import io.daio.wavetile.mvp.View
 import io.daio.wavetile.mvp.beaches.adapter.BeachAdapter
 import kotlinx.android.synthetic.main.fragment_beaches_view.*
 
-class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
+class BeachView: Fragment(), View, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     private var presenter: Presenter? = null
     private val adapter = BeachAdapter()
@@ -34,6 +34,7 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
         super.onViewCreated(view, savedInstanceState)
         beach_list_recycler.layoutManager = LinearLayoutManager(context)
         beach_list_recycler.adapter = adapter
+        beach_list_recycler.setHasFixedSize(true)
         adapter.selectListener = {
             presenter?.beachSelected(it)
         }
@@ -41,7 +42,7 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        presenter?.start()
+        presenter?.loadData()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
@@ -61,11 +62,10 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
         adapter.setBeaches(beaches)
     }
 
-    override fun beachStored(beach: Beach) {
-        adapter.savedBeachUpdated(beach)
+    override fun beachStored() {
+        adapter.savedBeachUpdated()
     }
     //</editor-fold>
-
 
     override fun onQueryTextSubmit(query: String?): Boolean {
         presenter?.search(query)
@@ -74,6 +74,11 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener {
 
     override fun onQueryTextChange(newText: String?): Boolean {
         presenter?.search(newText)
+        return false
+    }
+
+    override fun onClose(): Boolean {
+        presenter?.loadData()
         return false
     }
 

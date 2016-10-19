@@ -1,10 +1,12 @@
 package io.daio.wavetile.tile
 
 import android.service.quicksettings.TileService
+import io.daio.wavetile.MainActivity
 import io.daio.wavetile.api.beach.BeachFinderAPI
 import io.daio.wavetile.api.beach.BeachStore
 import io.daio.wavetile.api.model.Beach
 import io.daio.wavetile.api.surf.SurfQueryAPI
+import io.daio.wavetile.extensions.removeLastWord
 import io.daio.wavetile.repo.BeachRepo
 import java.util.*
 
@@ -16,6 +18,7 @@ class WaveTileService : TileService() {
     override fun onClick() {
         super.onClick()
         request()
+        MainActivity.start(applicationContext)
     }
 
     override fun onCreate() {
@@ -30,7 +33,9 @@ class WaveTileService : TileService() {
     }
 
     private fun updateTile(beachName: String?, minSwell: Int?, maxSwell: Int?) {
-        qsTile.label = "$beachName\n$minSwell - ${maxSwell}ft"
+        val name = beachName?.removeLastWord(20)
+
+        qsTile.label = "$name\n$minSwell - ${maxSwell}ft"
         qsTile.updateTile()
     }
 

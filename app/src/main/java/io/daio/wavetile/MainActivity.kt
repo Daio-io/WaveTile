@@ -1,8 +1,9 @@
 package io.daio.wavetile
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import io.daio.wavetile.api.beach.BeachFinderAPI
 import io.daio.wavetile.api.beach.BeachStore
 import io.daio.wavetile.mvp.beaches.BeachPresenter
@@ -25,6 +26,14 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.view_container, view)
                 .commit()
 
+    }
+
+    companion object {
+        fun start(context: Context) {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            context.startActivity(intent)
+        }
     }
 
 }

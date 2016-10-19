@@ -9,7 +9,7 @@ import io.daio.wavetile.api.model.Beach
 import kotlinx.android.synthetic.main.beach_list_item.view.*
 
 
-class BeachAdapter(): RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
+class BeachAdapter() : RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
 
     private var beaches: List<Beach>? = null
     var selectListener: ((Beach?) -> Unit)? = null
@@ -33,14 +33,7 @@ class BeachAdapter(): RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
         notifyDataSetChanged()
     }
 
-    fun savedBeachUpdated(beach: Beach) {
-        beaches?.forEach {
-            if (beach.id === it.id) {
-                it.selected = true
-            } else {
-                it.selected = false
-            }
-        }
+    fun savedBeachUpdated() {
         notifyDataSetChanged()
     }
 
