@@ -9,4 +9,10 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always" />
 
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_help"
+        app:showAsAction="ifRoom"
+        android:title="about" />
+
 </menu>

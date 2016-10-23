@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.view.Menu
+import android.view.MenuItem
 import io.daio.wavetile.api.beach.BeachFinderAPI
 import io.daio.wavetile.api.beach.BeachStore
 import io.daio.wavetile.mvp.beaches.BeachPresenter
@@ -26,6 +28,17 @@ class MainActivity : AppCompatActivity() {
                 .replace(R.id.view_container, view)
                 .commit()
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        item?.itemId?.compareTo(R.id.action_settings)?.let {
+            AboutActivity.start(MainActivity@this)
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {
