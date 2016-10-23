@@ -11,7 +11,7 @@ class AboutActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_about)
-        webView.loadData("", "text/html", "UTF-8")
+        webView.loadUrl("http://cdn.rawgit.com/Daio-io/WaveTile/master/about.html")
     }
 
     companion object {
