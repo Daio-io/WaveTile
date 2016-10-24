@@ -6,4 +6,5 @@ interface View {
     fun setPresenter(presenter: Presenter?)
     fun displayBeaches(beaches: List<Beach>)
     fun beachStored()
+    fun showLoadError()
 }

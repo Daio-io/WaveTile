@@ -10,7 +10,7 @@ class BeachRepo(private val beachStore: BeachStore, private val beachFinderAPI: 
 
     fun saveUserPreferredBeach(beach: Beach) = beachStore.storeBeach(beach)
 
-    fun getBeaches(callback: (List<Beach>?) -> Unit) {
+    fun getBeaches(success: (List<Beach>?) -> Unit, failure: () -> Unit) {
         val beaches = beachStore.retrieveBeaches()
 
         val size = beaches?.size?.compareTo(0)
@@ -19,10 +19,12 @@ class BeachRepo(private val beachStore: BeachStore, private val beachFinderAPI: 
             0 -> {
                 beachFinderAPI.beaches({
                     beachStore.storeBeaches(it)
-                    callback(it)
+                    success(it)
+                }, {
+                    failure()
                 })
 
-            } else -> callback(beaches)
+            } else -> success(beaches)
         }
     }
 

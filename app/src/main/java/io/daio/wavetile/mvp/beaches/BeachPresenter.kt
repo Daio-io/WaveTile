@@ -38,12 +38,14 @@ class BeachPresenter(private val view: View, private val beachRepo: BeachRepo) :
     }
 
     private fun requestBeaches() {
-        beachRepo.getBeaches {
+        beachRepo.getBeaches({
             it?.let {
                 beaches = it
                 view.displayBeaches(it)
             }
-        }
+        }, {
+            view.showLoadError()
+        })
     }
 
 }

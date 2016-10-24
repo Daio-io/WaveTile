@@ -1,6 +1,7 @@
 package io.daio.wavetile.mvp.beaches
 
 import android.os.Bundle
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.view.MenuItemCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -42,6 +43,7 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener, SearchView.On
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        spinner.visibility = android.view.View.VISIBLE
         presenter?.loadData()
     }
 
@@ -60,10 +62,27 @@ class BeachView: Fragment(), View, SearchView.OnQueryTextListener, SearchView.On
 
     override fun displayBeaches(beaches: List<Beach>) {
         adapter.setBeaches(beaches)
+        spinner.visibility = android.view.View.GONE
     }
 
     override fun beachStored() {
         adapter.savedBeachUpdated()
+    }
+
+    override fun showLoadError() {
+        spinner.visibility = android.view.View.GONE
+
+        view?.let {
+            val snackBar = Snackbar.make(it,
+                    "There was an error fetching surf spots",
+                    Snackbar.LENGTH_INDEFINITE)
+
+            snackBar.setAction("Retry", {
+                spinner.visibility = android.view.View.VISIBLE
+                presenter?.loadData()
+            })
+            snackBar.show()
+        }
     }
     //</editor-fold>
 
