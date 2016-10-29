@@ -30,6 +30,16 @@
             </intent-filter>
         </service>
 
+        <service
+            android:name=".tile.WindTileService"
+            android:icon="@drawable/wind_icon"
+            android:label="Wind Tile"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+        </service>
+
         <activity android:name=".AboutActivity" />
     </application>
 

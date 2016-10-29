@@ -11,7 +11,7 @@ import io.daio.wavetile.extensions.removeLastWord
 import io.daio.wavetile.repo.BeachRepo
 import java.util.*
 
-class WaveTileService : TileService() {
+class WindTileService: TileService() {
 
     private val api = SurfQueryAPI(Constants.API_KEY)
     private var repo: BeachRepo? = null
@@ -33,10 +33,10 @@ class WaveTileService : TileService() {
         request()
     }
 
-    private fun updateTile(beachName: String?, minSwell: Int?, maxSwell: Int?) {
+    private fun updateTile(beachName: String?, windSpeed: Int?) {
         val name = beachName?.removeLastWord(20)
 
-        qsTile.label = "$name\n$minSwell - ${maxSwell}ft"
+        qsTile.label = "$name\n${windSpeed}mph"
         qsTile.updateTile()
     }
 
@@ -46,8 +46,8 @@ class WaveTileService : TileService() {
 
         if (beach is Beach && beach.id is Int) {
             api.next(beach.id, hour, {
-                val swell = it?.response?.first()?.swell
-                updateTile(beach.name, swell?.minSwell, swell?.maxSwell)
+                val wind = it?.response?.first()?.weather?.wind
+                updateTile(beach.name, wind)
             })
         } else {
             qsTile.label = "Not set"
