@@ -1,4 +1,11 @@
 language: android
+
+machine:
+java:
+version: openjdk8
+environment:
+ANDROID_HOME: /usr/local/android-sdk-linux
+
 android:
   components:
     # Uncomment the lines below if you want to
