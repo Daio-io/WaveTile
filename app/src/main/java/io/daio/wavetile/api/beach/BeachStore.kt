@@ -15,11 +15,7 @@ class BeachStore(context: Context) {
     private val prefs = PreferenceManager.getDefaultSharedPreferences(context)
 
     fun storeBeach(beach: Beach) {
-        val jsonObj = JSONObject()
-        jsonObj.put("name", beach.name)
-        jsonObj.put("id", beach.id)
-
-        prefs.edit().putString(BEACH_STORE_KEY, jsonObj.toString()).apply()
+        prefs.edit().putString(BEACH_STORE_KEY, beach.toJsonString()).apply()
     }
 
     fun getBeach(): Beach? {
@@ -27,11 +23,7 @@ class BeachStore(context: Context) {
 
         beach?.let {
             val jsonObj = JSONObject(it)
-            val name = jsonObj.getString("name")
-            val id = jsonObj.getInt("id")
-            val country = jsonObj.getString("country")
-            val region = jsonObj.getString("region")
-            return Beach(name, id, country, region)
+            return Beach.fromJson(jsonObj)
         }
         return null
     }
