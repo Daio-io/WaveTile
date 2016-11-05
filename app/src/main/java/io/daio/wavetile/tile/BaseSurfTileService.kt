@@ -21,7 +21,8 @@ abstract class BaseSurfTileService: TileService() {
     override fun onClick() {
         super.onClick()
         request()
-        MainActivity.start(applicationContext)
+        val intent = MainActivity.startIntent(applicationContext)
+        startActivityAndCollapse(intent)
     }
 
     override fun onCreate() {

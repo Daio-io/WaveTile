@@ -9,9 +9,8 @@ import io.daio.wavetile.api.model.Beach
 import kotlinx.android.synthetic.main.beach_list_item.view.*
 
 
-class BeachAdapter() : RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
+class BeachAdapter(private var beaches: List<Beach>? = null) : RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
 
-    private var beaches: List<Beach>? = null
     var selectListener: ((Beach?) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): BeachViewHolder {

@@ -42,11 +42,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
-        fun start(context: Context) {
+
+        fun startIntent(context: Context): Intent {
             val intent = Intent(context, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            context.startActivity(intent)
+            return intent
         }
+
     }
 
 }
