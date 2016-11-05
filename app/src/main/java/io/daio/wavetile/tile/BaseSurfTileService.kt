@@ -1,5 +1,6 @@
 package io.daio.wavetile.tile
 
+import android.service.quicksettings.Tile
 import android.service.quicksettings.TileService
 import io.daio.wavetile.Constants
 import io.daio.wavetile.MainActivity
@@ -48,7 +49,8 @@ abstract class BaseSurfTileService: TileService() {
                 updateTile(name, surfData)
             })
         } else {
-            qsTile.label = "Not set"
+            qsTile.label = "Tap to setup"
+            qsTile.state = Tile.STATE_INACTIVE
             qsTile.updateTile()
         }
 
