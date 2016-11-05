@@ -5,6 +5,6 @@ import retrofit2.Call
 import retrofit2.http.GET
 
 interface BeachAPI {
-    @GET("/beach/uk")
+    @GET("/beach")
     fun beaches(): Call<List<Beach>>
 }

@@ -48,6 +48,7 @@ class BeachAdapter() : RecyclerView.Adapter<BeachAdapter.BeachViewHolder>() {
         fun bindBeach(beach: Beach?) {
             this.beach = beach
             itemView.beach_list_name.text = this.beach?.name
+            itemView.beach_list_region.text = this.beach?.region
             itemView.beach_list_selected.isChecked = this.beach?.selected ?: false
         }
 

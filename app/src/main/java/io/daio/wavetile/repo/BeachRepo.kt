@@ -24,8 +24,13 @@ class BeachRepo(private val beachStore: BeachStore, private val beachFinderAPI: 
                     failure()
                 })
 
-            } else -> success(beaches)
+            }
+            else -> {
+                beachFinderAPI.beaches({
+                  beachStore.storeBeaches(it)
+                })
+                success(beaches)
+            }
         }
     }
-
 }

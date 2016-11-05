@@ -7,7 +7,6 @@ import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
-
 class BeachStore(context: Context) {
 
     private val BEACH_STORE_KEY = "BEACH_STORE_KEY"
@@ -30,7 +29,9 @@ class BeachStore(context: Context) {
             val jsonObj = JSONObject(it)
             val name = jsonObj.getString("name")
             val id = jsonObj.getInt("id")
-            return Beach(name, id)
+            val country = jsonObj.getString("country")
+            val region = jsonObj.getString("region")
+            return Beach(name, id, country, region)
         }
         return null
     }
@@ -42,6 +43,8 @@ class BeachStore(context: Context) {
                 val jsonObject = JSONObject()
                 jsonObject.put("name", it.name)
                 jsonObject.put("id", it.id)
+                jsonObject.put("country", it.country)
+                jsonObject.put("region", it.region)
                 jsonObject.put("selected", it.selected)
                 jsonArray.put(jsonObject)
             }
@@ -69,7 +72,10 @@ class BeachStore(context: Context) {
                 val name = jsonObj.getString("name")
                 val id = jsonObj.getInt("id")
                 val selected = id == selectedBeach?.id
-                beaches.add(Beach(name, id, selected))
+                val country = jsonObj.optString("country")
+                val region = jsonObj.optString("region")
+
+                beaches.add(Beach(name, id, country, region, selected))
             }
         }
         return beaches
