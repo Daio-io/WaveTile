@@ -1,12 +1,11 @@
 package io.daio.wavetile.mvp.beaches
 
 import io.daio.wavetile.api.model.Beach
-import io.daio.wavetile.mvp.Presenter
-import io.daio.wavetile.mvp.View
 import io.daio.wavetile.repo.BeachRepo
 
 
-class BeachPresenter(private val view: View, private val beachRepo: BeachRepo) : Presenter {
+class BeachPresenter(private val view: BeachesContract.View,
+                     private val beachRepo: BeachRepo) : BeachesContract.Presenter {
 
     private var beaches: List<Beach>? = null
 

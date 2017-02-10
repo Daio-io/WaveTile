@@ -9,5 +9,7 @@ import retrofit2.http.Query
 interface SurfAPI {
 
     @GET("/next")
-    fun next(@Query("spotid") spotId: Int?, @Query("start") startTime: Int?, @Query("apikey") apikey: String): Call<SurfResponse>
+    fun next(@Query("spotid") spotId: Int?,
+             @Query("start") startTime: Int?,
+             @Query("apikey") apikey: String): Call<SurfResponse>
 }
