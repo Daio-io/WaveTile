@@ -1,5 +1,5 @@
 package io.daio.wavetile
 
 object Constants {
-    val API_KEY = ""
+    const val API_KEY = "3EC4931A9C"
 }
