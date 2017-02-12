@@ -7,7 +7,7 @@ interface BeachesContract {
     interface Presenter {
         fun loadData()
         fun beachSelected(beach: Beach?)
-        fun search(query: String?)
+        fun search(query: String)
     }
 
     interface View {

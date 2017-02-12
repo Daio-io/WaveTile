@@ -81,12 +81,12 @@ class BeachView: Fragment(), BeachesContract.View, SearchView.OnQueryTextListene
     }
     //</editor-fold>
 
-    override fun onQueryTextSubmit(query: String?): Boolean {
+    override fun onQueryTextSubmit(query: String): Boolean {
         presenter?.search(query)
         return false
     }
 
-    override fun onQueryTextChange(newText: String?): Boolean {
+    override fun onQueryTextChange(newText: String): Boolean {
         presenter?.search(newText)
         return false
     }

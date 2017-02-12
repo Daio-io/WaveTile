@@ -28,9 +28,9 @@ class BeachPresenter(private val view: BeachesContract.View,
         }
     }
 
-    override fun search(query: String?) {
+    override fun search(query: String) {
         beaches?.filter {
-            it.name!!.toLowerCase().contains(query?.toLowerCase() as CharSequence)
+            it.name?.contains(query, ignoreCase = true) == true
         }?.let {
             view.displayBeaches(it)
         }
