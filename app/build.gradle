@@ -1,9 +1,16 @@
+import org.ajoberstar.grgit.Grgit
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 Properties properties = new Properties()
 properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+ext {
+    git = Grgit.open()
+    gitVersionName = "${git.describe()}"
+}
 
 android {
 //    signingConfigs {
@@ -20,13 +27,15 @@ android {
         applicationId "io.daio.wavetile"
         minSdkVersion 24
         targetSdkVersion 25
+        versionName gitVersionName
         versionCode 7
-        versionName "1.2.3"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+
     buildTypes {
         debug {
             applicationIdSuffix = ".debug"
+            versionNameSuffix = "D"
         }
         release {
             minifyEnabled false
